@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MSFramework.Domain.Event;
 namespace Client.Domain.AggregateRoot.ClientAggregateRoot
@@ -100,9 +101,43 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 	
 	public class ClientChangedEvent : AggregateEventBase
 	{
+		public Client NewClient { get; }
+
+		public ClientChangedEvent(Client newClient)
+		{
+			NewClient = newClient;
+		}
+	}
+	
+	public class EnableClientChangedEvent : AggregateEventBase
+	{
+		public bool Active;
+
+		public EnableClientChangedEvent(Guid clientId )
+		{
+			//check client ,get client
+			
+			//set active
+		}
+	}
+	
+	public class DisableClientChangedEvent : AggregateEventBase
+	{
+		public bool Active;
+
+		public DisableClientChangedEvent(Guid clientId )
+		{
+			//check client ,get client
+			
+			//set active
+		}
+	}
+	
+	public class ClientUserChangedEvent : AggregateEventBase
+	{
 		public ClientUser NewClientUser { get; }
 
-		public ClientChangedEvent(ClientUser newClientUser)
+		public ClientUserChangedEvent(ClientUser newClientUser)
 		{
 			NewClientUser = newClientUser;
 		}

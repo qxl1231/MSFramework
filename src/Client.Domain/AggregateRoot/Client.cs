@@ -93,7 +93,7 @@ namespace Client.Domain.AggregateRoot
 			ScoringCycle = e.ScoringCycle;
 		}
 
-		private void Apply(ClientChangedEvent e)
+		private void Apply(ClientUserChangedEvent e)
 		{
 			Version = e.Version;
 			ClientUser = e.NewClientUser;
@@ -105,6 +105,25 @@ namespace Client.Domain.AggregateRoot
 			_isDeleted = true;
 		}
 
+		/// <summary>
+		/// 修改客户信息
+		/// </summary>
+		/// <param name="newClient"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public void ChangeClient(Client newClient)
+		{
+			if (newClient == null)
+			{
+				throw new ArgumentException(nameof(newClient));
+			}
+
+			ApplyAggregateEvent(new ClientChangedEvent(newClient));
+		}
+		/// <summary>
+		/// 修改客户联系人信息
+		/// </summary>
+		/// <param name="newClientUser"></param>
+		/// <exception cref="ArgumentException"></exception>
 		public void ChangeClientUser(ClientUser newClientUser)
 		{
 			if (newClientUser == null)
@@ -112,46 +131,33 @@ namespace Client.Domain.AggregateRoot
 				throw new ArgumentException(nameof(newClientUser));
 			}
 
-			ApplyAggregateEvent(new ClientChangedEvent(newClientUser));
+			ApplyAggregateEvent(new ClientUserChangedEvent(newClientUser));
+		}
+		
+		public void EnableClient(Guid clientId)
+		{
+			if (clientId == null)
+			{
+				throw new ArgumentException(nameof(clientId));
+			}
+
+			ApplyAggregateEvent(new EnableClientChangedEvent(clientId));
 		}
 
+		public void DisableClient(Guid clientId)
+		{
+			if (clientId == null)
+			{
+				throw new ArgumentException(nameof(clientId));
+			}
+
+			ApplyAggregateEvent(new DisableClientChangedEvent(clientId));
+		}
 		public void Delete()
 		{
 			ApplyAggregateEvent(new ClientDeletedEvent());
 		}
 
-		/// <summary>
-		/// 修改客户基本信息
-		/// </summary>
-		/// <param name="guid"></param>
-		/// <param name="clientDto"></param>
-		public void ChangeBasicInfo(Guid guid, Client client)
-		{
-		}
-
-		/// <summary>
-		/// Enable客户
-		/// </summary>
-		/// <param name="Id"></param>
-		public void EnableClient(Guid Id)
-		{
-		}
-
-		/// <summary>
-		/// disable客户
-		/// </summary>
-		/// <param name="Id"></param>
-		public void DisableClient(Guid Id)
-		{
-		}
-
-		/// <summary>
-		/// 软删除客户
-		/// </summary>
-		/// <param name="Id"></param>
-		public void SoftDeleteClient(Guid Id)
-		{
-		}
 
 		//客户联系人部分
 		/// <summary>
