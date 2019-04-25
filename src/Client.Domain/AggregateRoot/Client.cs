@@ -153,55 +153,17 @@ namespace Client.Domain.AggregateRoot
 
 			ApplyAggregateEvent(new DisableClientChangedEvent(clientId));
 		}
-		public void Delete()
+		public void DeleteClient()
 		{
 			ApplyAggregateEvent(new ClientDeletedEvent());
 		}
 
-
-		//客户联系人部分
-		/// <summary>
-		/// 添加客户联系人
-		/// </summary>
-		/// <param name="guid"></param>
-		/// <param name="clientUser"></param>
-		public void AddClientUser(Guid clientId, ClientUser clientUser)
+		
+		public void DeleteClientUser()
 		{
+			ApplyAggregateEvent(new ClientUserDeletedEvent());
 		}
 
-		/// <summary>
-		/// 修改客户联系人信息
-		/// </summary>
-		/// <param name="clientUserId"></param>
-		/// <param name="clientUser"></param>
-		public void ChangeClientUser(Guid clientUserId, ClientUser clientUser)
-		{
-		}
-
-		/// <summary>
-		/// 软删除客户联系人
-		/// </summary>
-		/// <param name="clientUserId"></param>
-		public void SoftDeleteClientUser(Guid clientUserId)
-		{
-		}
-
-		/// <summary>
-		/// 关联客户账单
-		/// </summary>
-		/// <param name="clientId"></param>
-		/// <param name="invoiceId"></param>
-		public void AssignInvoice(Guid clientId, Guid invoiceId)
-		{
-		}
-
-		/// <summary>
-		/// 取消关联客户账单
-		/// </summary>
-		/// <param name="clientId"></param>
-		/// <param name="invoiceId"></param>
-		public void UnAssignInvoice(Guid clientId, Guid invoiceId)
-		{
-		}
+		
 	}
 }

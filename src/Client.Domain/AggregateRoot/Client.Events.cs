@@ -7,6 +7,9 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 	{
 	}
 	
+	public class ClientUserDeletedEvent : AggregateEventBase
+	{
+	}
 	public class ClientCreatedEvent : AggregateEventBase
 	{
 		/// <summary>
