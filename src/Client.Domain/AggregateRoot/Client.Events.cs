@@ -104,11 +104,27 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 	
 	public class ClientChangedEvent : AggregateEventBase
 	{
-		public Client NewClient { get; }
-
-		public ClientChangedEvent(Client newClient)
+		public string Name { get; }
+		public string ShortName { get; }
+		public string Type  { get; }
+		public string City  { get; }
+		public string Province { get; }
+		public string Country { get; }
+		public string Level { get; }
+		public string PaymentType { get; }
+		public string ScoringCycle { get; }
+		public ClientChangedEvent(string name, string shortName, string type, string city, string province,
+			string country, string level, string paymentType, string scoringCycle)
 		{
-			NewClient = newClient;
+			Name = name;
+			ShortName = shortName;
+			Type = type;
+			City = city;
+			Province = province;
+			Country = country;
+			Level = level;
+			PaymentType = paymentType;
+			ScoringCycle = scoringCycle;
 		}
 	}
 	

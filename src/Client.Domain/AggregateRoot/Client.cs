@@ -93,6 +93,21 @@ namespace Client.Domain.AggregateRoot
 			ScoringCycle = e.ScoringCycle;
 		}
 
+		private void Apply(ClientChangedEvent e)
+		{
+			Version = e.Version;
+			Id = e.AggregateId;
+			Name = e.Name;
+			ShortName = e.ShortName;
+			Type = e.Type;
+			City = e.City;
+			Province = e.Province;
+			Country = e.Country;
+			Level = e.Level;
+			PaymentType = e.PaymentType;
+			ScoringCycle = e.ScoringCycle;
+		}
+
 		private void Apply(ClientUserChangedEvent e)
 		{
 			Version = e.Version;
@@ -104,21 +119,31 @@ namespace Client.Domain.AggregateRoot
 			Version = e.Version;
 			_isDeleted = true;
 		}
+		
+		private void Apply(EnableClientChangedEvent e)
+		{
+			Version = e.Version;
+			Active = true;
+		}
+		
+		private void Apply(DisableClientChangedEvent e)
+		{
+			Version = e.Version;
+			Active = false;
+		}
 
 		/// <summary>
 		/// 修改客户信息
 		/// </summary>
 		/// <param name="newClient"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public void ChangeClient(Client newClient)
+		public void ChangeClient(string name, string shortName, string type, string city, string province,
+			string country, string level, string paymentType, string scoringCycle)
 		{
-			if (newClient == null)
-			{
-				throw new ArgumentException(nameof(newClient));
-			}
-
-			ApplyAggregateEvent(new ClientChangedEvent(newClient));
+			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, city, province,
+				country, level, paymentType, scoringCycle));
 		}
+
 		/// <summary>
 		/// 修改客户联系人信息
 		/// </summary>
@@ -133,7 +158,7 @@ namespace Client.Domain.AggregateRoot
 
 			ApplyAggregateEvent(new ClientUserChangedEvent(newClientUser));
 		}
-		
+
 		public void EnableClient(Guid clientId)
 		{
 			if (clientId == null)
@@ -153,17 +178,16 @@ namespace Client.Domain.AggregateRoot
 
 			ApplyAggregateEvent(new DisableClientChangedEvent(clientId));
 		}
+
 		public void DeleteClient()
 		{
 			ApplyAggregateEvent(new ClientDeletedEvent());
 		}
 
-		
+
 		public void DeleteClientUser()
 		{
 			ApplyAggregateEvent(new ClientUserDeletedEvent());
 		}
-
-		
 	}
 }
