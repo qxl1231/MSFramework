@@ -4,36 +4,94 @@ namespace Client.API.Application.DTO
 {
 	public class CreateClientDTO
 	{
-		public string UserId { get; set; }
+		/// <summary>
+		/// 客户名称
+		/// </summary>
+
+
+		public string Name { get; set; }
+
+		/// <summary>
+		/// 客户简称
+		/// </summary>
+
+
+		public string ShortName { get; set; }
+
+		/// <summary>
+		/// 客户类型 -> 公墓基金、私募基金
+		/// </summary>
+
+
+		public string Type { get; set; }
+
+		/// <summary>
+		/// 城市
+		/// </summary>
 
 		public string City { get; set; }
 
-		public string Street { get; set; }
+		/// <summary>
+		/// 省
+		/// </summary>
 
-		public string State { get; set; }
+		public string Province { get; set; }
+
+		/// <summary>
+		/// 国家
+		/// </summary>
 
 		public string Country { get; set; }
 
-		public string ZipCode { get; set; }
+		/// <summary>
+		/// 优先级
+		/// </summary>
 
-		public string Description { get; set; }
 
+		public string Level { get; set; }
+
+		/// <summary>
+		/// 支付方式
+		/// </summary>
+
+
+		public string PaymentType { get; set; }
+
+		/// <summary>
+		/// 打分周期
+		/// </summary>
+
+		public string ScoringCycle { get; set; }
+
+		/// <summary>
+		/// 状态	销售线索、潜在客户、试用客户、活跃客户
+		/// </summary>
+
+
+		public string State { get; set; }
+
+		/// <summary>
+		/// 启用/禁用
+		/// </summary>
+
+		public bool Active { get; set; }
 
 		public CreateClientDTO()
 		{
 		}
 
-		public CreateClientDTO( string userId, string city,
-			string street, string state, string country, string zipcode, string description)
+		public CreateClientDTO(string name, string shortName, string type, string city, string province,
+			string country, string level, string paymentType, string scoringCycle)
 		{
-			UserId = userId;
-
+			Name = name;
+			ShortName = shortName;
+			Type = type;
 			City = city;
-			Street = street;
-			State = state;
+			Province = province;
 			Country = country;
-			ZipCode = zipcode;
-			Description = description;
+			Level = level;
+			PaymentType = paymentType;
+			ScoringCycle = scoringCycle;
 		}
 	}
 }

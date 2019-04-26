@@ -17,12 +17,12 @@ namespace Client.API.Controllers
 		private readonly ILogger _logger;
 		private readonly IClientAppService _clientAppService;
 
-		public ClientController( 
+		public ClientController(
 			IClientAppService clientAppService,
 			IMSFrameworkSession session, ILogger<ClientController> logger) : base(session)
 		{
 			_logger = logger;
-		 
+
 			_clientAppService = clientAppService;
 		}
 
@@ -31,9 +31,10 @@ namespace Client.API.Controllers
 		{
 			var random = new Random();
 			var count = random.Next(2, 5);
-			await _clientAppService.CreateClient(new CreateClientDTO(
-				"HELLO",
-				"上海", "张扬路500号", "上海", "中国", "200000", "what?"));
+			await _clientAppService.CreateClient(new CreateClientDTO("富国基金公司", "富国基金", "富国基金", "富国基金", "富国基金", "富国基金",
+				"富国基金", "富国基金"
+				, "富国基金"
+			));
 			// FOR TEST
 			return Ok();
 		}
@@ -48,7 +49,6 @@ namespace Client.API.Controllers
 			return Ok();
 		}
 
-	
 
 		#region QUERY
 

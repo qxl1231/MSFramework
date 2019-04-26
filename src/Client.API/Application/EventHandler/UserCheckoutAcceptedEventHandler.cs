@@ -21,10 +21,10 @@ namespace Client.API.Application.EventHandler
 
 		public async Task Handle(UserCheckoutAcceptedEvent @event)
 		{
-			var dto = new CreateClientDTO( @event.UserId, @event.City, @event.Street,
-				@event.State, @event.Country, @event.ZipCode, @event.Description);
+//			var dto = new CreateClientDTO( @event.UserId, @event.City, @event.Street,
+//				@event.State, @event.Country, @event.ZipCode, @event.Description);
 			// IdentifiedCommand<> 必须保证只执行一次
-			await _commandBus.CreateClient(dto);
+//			await _commandBus.CreateClient(dto);
 		}
 	}
 }

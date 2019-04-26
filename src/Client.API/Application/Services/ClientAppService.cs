@@ -39,10 +39,11 @@ namespace Client.API.Application.Services
 
 		public async Task CreateClient(CreateClientDTO dto)
 		{
-//			var client = new Domain.AggregateRoot.Client(
-//				dto.Description);
-//				client.RegisterDomainEvent(new OrderStartedEvent(Session.UserId, client.Id));
-//			await _writeRepository.InsertAsync(client);
+			var client = new Domain.AggregateRoot.Client(
+				dto.Name,dto.ShortName,dto.Type,dto.City,dto.Province,
+				dto.Country,dto.Level,dto.PaymentType,dto.ScoringCycle);
+//				client.RegisterDomainEvent(new ClientStartedEvent(Session.UserId, client.Id));
+			await _writeRepository.InsertAsync(client);
 		}
 
 		public async Task<List<Domain.AggregateRoot.Client>> GetAllClientsAsync()

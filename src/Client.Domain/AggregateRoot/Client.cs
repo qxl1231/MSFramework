@@ -75,11 +75,11 @@ namespace Client.Domain.AggregateRoot
 
 		public Client(
 			string name, string shortName, string type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle, string state, bool active
+			string country, string level, string paymentType, string scoringCycle
 		)
 		{
 			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle, state, active
+				country, level, paymentType, scoringCycle, "1", true
 			));
 		}
 
