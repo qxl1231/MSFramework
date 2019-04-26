@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace Ordering.API.Application.DTO
+namespace Client.API.Application.DTO
 {
-	public class CreateOrderDTO
+	public class CreateClientDTO
 	{
 		public string UserId { get; set; }
 
@@ -18,16 +18,14 @@ namespace Ordering.API.Application.DTO
 
 		public string Description { get; set; }
 
-		public List<OrderItemDTO> OrderItems { get; }
 
-		public CreateOrderDTO()
+		public CreateClientDTO()
 		{
 		}
 
-		public CreateOrderDTO(List<OrderItemDTO> basketItems, string userId, string city,
+		public CreateClientDTO( string userId, string city,
 			string street, string state, string country, string zipcode, string description)
 		{
-			OrderItems = basketItems;
 			UserId = userId;
 
 			City = city;

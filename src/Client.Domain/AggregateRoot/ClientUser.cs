@@ -1,7 +1,7 @@
 using System;
 using MSFramework.Domain;
 
-namespace Client.Domain.AggregateRoot.ClientAggregateRoot
+namespace Client.Domain.AggregateRoot
 {
 	public class ClientUser : AggregateRootBase
 	{

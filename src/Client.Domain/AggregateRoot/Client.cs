@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Client.Domain.AggregateRoot.ClientAggregateRoot;
+using Client.Domain.AggregateRoot;
 using MSFramework.Data;
 using MSFramework.Domain;
 

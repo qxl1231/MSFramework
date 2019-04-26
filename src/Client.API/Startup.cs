@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using MSFramework;
+using MSFramework.EntityFrameworkCore;
+using MSFramework.EntityFrameworkCore.SqlServer;
+using MSFramework.EventBus;
+using MSFramework.EventSouring;
+using MSFramework.EventSouring.EntityFrameworkCore;
+using Client.API.Application.EventHandler;
+using Client.Domain;
+using Client.Infrastructure;
+using Serilog;
 
 namespace Client.API
 {
@@ -26,11 +30,27 @@ namespace Client.API
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			Log.Logger.Information($"Use: Swagger");
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1.0", new OpenApiInfo {Version = "v1.0", Description = "西部证券研究发中心 API V1.0"});
+			});
+			services.AddMSFramework(builder =>
+			{
+				builder.Configuration = Configuration;
+				builder.UseEntityFramework(ef => { ef.AddSqlServerDbContextOptionsBuilderCreator(); });
+				builder.UseEntityFrameworkEventSouring();
+  
+				builder.AddLocalEventBus();
+
+				builder.AddEventHandlers(typeof(UserCheckoutAcceptedEventHandler));
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
+			var es = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IEventStore>();
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -41,7 +61,12 @@ namespace Client.API
 				app.UseHsts();
 			}
 
+			app.UseMSFramework();
 			app.UseHttpsRedirection();
+			//启用中间件服务生成Swagger作为JSON终结点
+			app.UseSwagger();
+			//启用中间件服务对swagger-ui，指定Swagger JSON终结点
+			app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "西部证券研究发中心 API V1.0"); });
 			app.UseMvc();
 		}
 	}

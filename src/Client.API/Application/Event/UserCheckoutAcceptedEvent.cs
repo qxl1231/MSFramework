@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MSFramework.Domain.Event;
-using Ordering.API.Application.DTO;
+using Client.API.Application.DTO;
 
-namespace Ordering.API.Application.Event
+namespace Client.API.Application.Event
 {
 	public class UserCheckoutAcceptedEvent : DomainEventBase<Guid>
 	{
@@ -21,12 +21,10 @@ namespace Ordering.API.Application.Event
 
 		public string Description { get; }
 
-		public List<OrderItemDTO> OrderItems { get; set; }
 
-		public UserCheckoutAcceptedEvent(List<OrderItemDTO> basketItems, string userId, string city, string street,
+		public UserCheckoutAcceptedEvent( string userId, string city, string street,
 			string state, string country, string zipCode, string description)
 		{
-			OrderItems = basketItems;
 			UserId = userId;
 			City = city;
 			Street = street;

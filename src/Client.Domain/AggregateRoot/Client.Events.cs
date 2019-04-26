@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Client.Domain.AggregateRoot.ClientAggregateRoot;
+using Client.Domain.AggregateRoot;
 using MSFramework.Domain.Event;
 
 namespace Client.Domain.AggregateRoot
