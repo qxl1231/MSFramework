@@ -1,15 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Client.Domain.AggregateRoot.ClientAggregateRoot;
 using MSFramework.Domain.Event;
-namespace Client.Domain.AggregateRoot.ClientAggregateRoot
+
+namespace Client.Domain.AggregateRoot
 {
 	public class ClientDeletedEvent : AggregateEventBase
 	{
 	}
-	
+
 	public class ClientUserDeletedEvent : AggregateEventBase
 	{
+		public Guid ClientUserId { get; }
+
+		public ClientUserDeletedEvent(Guid clientUserId)
+		{
+			ClientUserId = clientUserId;
+		}
 	}
+
 	public class ClientCreatedEvent : AggregateEventBase
 	{
 		/// <summary>
@@ -84,10 +93,10 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 		public List<ClientUser> ClientUsers { get; }
 
 		public ClientCreatedEvent(
-			string name ,string shortName ,string type ,string city ,string province ,
-			string country ,string level ,string paymentType ,string scoringCycle ,string state ,bool active ,
-				List<ClientUser> clientUsers
-		) 
+			string name, string shortName, string type, string city, string province,
+			string country, string level, string paymentType, string scoringCycle, string state, bool active,
+			List<ClientUser> clientUsers
+		)
 		{
 			Name = name;
 			ShortName = shortName;
@@ -101,18 +110,19 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 			ClientUsers = clientUsers;
 		}
 	}
-	
+
 	public class ClientChangedEvent : AggregateEventBase
 	{
 		public string Name { get; }
 		public string ShortName { get; }
-		public string Type  { get; }
-		public string City  { get; }
+		public string Type { get; }
+		public string City { get; }
 		public string Province { get; }
 		public string Country { get; }
 		public string Level { get; }
 		public string PaymentType { get; }
 		public string ScoringCycle { get; }
+
 		public ClientChangedEvent(string name, string shortName, string type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle)
 		{
@@ -127,36 +137,39 @@ namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 			ScoringCycle = scoringCycle;
 		}
 	}
-	
+
 	public class EnableClientChangedEvent : AggregateEventBase
 	{
-		public bool Active;
-
-		public EnableClientChangedEvent(Guid clientId )
+		public EnableClientChangedEvent()
 		{
-			//check client ,get client
-			
-			//set active
 		}
 	}
-	
+
 	public class DisableClientChangedEvent : AggregateEventBase
 	{
-		public bool Active;
-
-		public DisableClientChangedEvent(Guid clientId )
+		public DisableClientChangedEvent()
 		{
 			//check client ,get client
-			
+
 			//set active
 		}
 	}
-	
-	public class ClientUserChangedEvent : AggregateEventBase
+
+	public class ClientUserAddedEvent : AggregateEventBase
 	{
 		public ClientUser NewClientUser { get; }
 
-		public ClientUserChangedEvent(ClientUser newClientUser)
+		public ClientUserAddedEvent(ClientUser newClientUser)
+		{
+			NewClientUser = newClientUser;
+		}
+	}
+
+	public class ClientUserUpdatedEvent : AggregateEventBase
+	{
+		public ClientUser NewClientUser { get; }
+
+		public ClientUserUpdatedEvent(ClientUser newClientUser)
 		{
 			NewClientUser = newClientUser;
 		}

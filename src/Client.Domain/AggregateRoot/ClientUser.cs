@@ -3,217 +3,219 @@ using MSFramework.Domain;
 
 namespace Client.Domain.AggregateRoot.ClientAggregateRoot
 {
-	public class ClientUser: AggregateRootBase
+	public class ClientUser : AggregateRootBase
 	{
 		/// <summary>
 		/// 客户ID
 		/// </summary>
-		private Guid ClientId;
+		private Guid _clientId;
 
 		/// <summary>
 		/// 名
 		/// </summary>
-		private string FirstName;
+		private string _firstName;
 
 		/// <summary>
 		/// 姓
 		/// </summary>
-		private string LastName;
+		private string _lastName;
 
 		/// <summary>
 		/// 称谓
 		/// </summary>
-		private string Civility;
+		private string _civility;
 
 		/// <summary>
 		/// 职位
 		/// </summary>
-		private string Title;
+		private string _title;
 
 		/// <summary>
 		/// 邮箱
 		/// </summary>
-		private string Email;
+		private string _email;
 
 		/// <summary>
 		/// 座机
 		/// </summary>
-		private string Phone;
+		private string _phone;
 
 		/// <summary>
 		/// 激活状态
 		/// </summary>
-		private bool Active;
+		private bool _active;
 
 		/// <summary>
 		/// 电话
 		/// </summary>
-		private string Mobile;
+		private string _mobile;
 
 		/// <summary>
 		/// 职位描述
 		/// </summary>
-		private string TitleDescription;
+		private string _titleDescription;
 
 		/// <summary>
 		/// 行业描述
 		/// </summary>
-		private string IndustryDescription;
+		private string _industryDescription;
 
 		/// <summary>
 		/// 部门
 		/// </summary>
-		private string Department;
+		private string _department;
 
 		/// <summary>
 		/// 部门
 		/// </summary>
-		private string DepartmentDescription;
+		private string _departmentDescription;
 
 		/// <summary>
 		/// 打分权重
 		/// </summary>
-		private int ScoringPriority;
+		private int _scoringPriority;
 
 
-		public Guid getClientId()
+		public int ScoringPriority => _scoringPriority;
+
+		public Guid GetClientId()
 		{
-			return ClientId;
+			return _clientId;
 		}
 
-		public void setClientId(Guid clientId)
+		public void SetClientId(Guid clientId)
 		{
-			ClientId = clientId;
+			_clientId = clientId;
 		}
 
-		public string getFirstName()
+		public string GetFirstName()
 		{
-			return FirstName;
+			return _firstName;
 		}
 
-		public void setFirstName(string firstName)
+		public void SetFirstName(string firstName)
 		{
-			FirstName = firstName;
+			_firstName = firstName;
 		}
 
-		public string getLastName()
+		public string GetLastName()
 		{
-			return LastName;
+			return _lastName;
 		}
 
-		public void setLastName(string lastName)
+		public void SetLastName(string lastName)
 		{
-			LastName = lastName;
+			_lastName = lastName;
 		}
 
-		public string getCivility()
+		public string GetCivility()
 		{
-			return Civility;
+			return _civility;
 		}
 
-		public void setCivility(string civility)
+		public void SetCivility(string civility)
 		{
-			Civility = civility;
+			_civility = civility;
 		}
 
-		public string getTitle()
+		public string GetTitle()
 		{
-			return Title;
+			return _title;
 		}
 
-		public void setTitle(string title)
+		public void SetTitle(string title)
 		{
-			Title = title;
+			_title = title;
 		}
 
-		public string getEmail()
+		public string GetEmail()
 		{
-			return Email;
+			return _email;
 		}
 
-		public void setEmail(string email)
+		public void SetEmail(string email)
 		{
-			Email = email;
+			_email = email;
 		}
 
-		public string getPhone()
+		public string GetPhone()
 		{
-			return Phone;
+			return _phone;
 		}
 
-		public void setPhone(string phone)
+		public void SetPhone(string phone)
 		{
-			Phone = phone;
+			_phone = phone;
 		}
 
-		public bool isActive()
+		public bool IsActive()
 		{
-			return Active;
+			return _active;
 		}
 
-		public void setActive(bool active)
+		public void SetActive(bool active)
 		{
-			Active = active;
+			_active = active;
 		}
 
-		public string getMobile()
+		public string GetMobile()
 		{
-			return Mobile;
+			return _mobile;
 		}
 
-		public void setMobile(string mobile)
+		public void SetMobile(string mobile)
 		{
-			Mobile = mobile;
+			_mobile = mobile;
 		}
 
-		public string getTitleDescription()
+		public string GetTitleDescription()
 		{
-			return TitleDescription;
+			return _titleDescription;
 		}
 
-		public void setTitleDescription(string titleDescription)
+		public void SetTitleDescription(string titleDescription)
 		{
-			TitleDescription = titleDescription;
+			_titleDescription = titleDescription;
 		}
 
-		public string getIndustryDescription()
+		public string GetIndustryDescription()
 		{
-			return IndustryDescription;
+			return _industryDescription;
 		}
 
-		public void setIndustryDescription(string industryDescription)
+		public void SetIndustryDescription(string industryDescription)
 		{
-			IndustryDescription = industryDescription;
+			_industryDescription = industryDescription;
 		}
 
-		public string getDepartment()
+		public string GetDepartment()
 		{
-			return Department;
+			return _department;
 		}
 
-		public void setDepartment(string department)
+		public void SetDepartment(string department)
 		{
-			Department = department;
+			_department = department;
 		}
 
-		public string getDepartmentDescription()
+		public string GetDepartmentDescription()
 		{
-			return DepartmentDescription;
+			return _departmentDescription;
 		}
 
-		public void setDepartmentDescription(string departmentDescription)
+		public void SetDepartmentDescription(string departmentDescription)
 		{
-			DepartmentDescription = departmentDescription;
+			_departmentDescription = departmentDescription;
 		}
 
-		public int getScoringPriority()
+		public int GetScoringPriority()
 		{
-			return ScoringPriority;
+			return _scoringPriority;
 		}
 
-		public void setScoringPriority(int scoringPriority)
+		public void SetScoringPriority(int scoringPriority)
 		{
-			ScoringPriority = scoringPriority;
+			_scoringPriority = scoringPriority;
 		}
 	}
 }

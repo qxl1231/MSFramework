@@ -1,71 +1,76 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Client.Domain.AggregateRoot.ClientAggregateRoot;
+using MSFramework.Data;
 using MSFramework.Domain;
 
 namespace Client.Domain.AggregateRoot
 {
 	public class Client : AggregateRootBase
 	{
-		private bool _isDeleted;
+		// DDD Patterns comment
+		// Using a private collection field, better for DDD Aggregate's encapsulation
+		// so OrderItems cannot be added from "outside the AggregateRoot" directly to the collection,
+		// but only through the method OrderAggrergateRoot.AddOrderItem() which includes behaviour.
+		private List<ClientUser> _clientUsers;
 
 		/// <summary>
 		/// 客户名称
 		/// </summary>
-		private string Name;
+		private string _name;
 
 		/// <summary>
 		/// 客户简称
 		/// </summary>
-		private string ShortName;
+		private string _shortName;
 
 		/// <summary>
 		/// 客户类型 -> 公墓基金、私募基金
 		/// </summary>
-		private string Type;
+		private string _type;
 
 		/// <summary>
 		/// 城市
 		/// </summary>
-		private string City;
+		private string _city;
 
 		/// <summary>
 		/// 省
 		/// </summary>
-		private string Province;
+		private string _province;
 
 		/// <summary>
 		/// 国家
 		/// </summary>
-		private string Country;
+		private string _country;
 
 		/// <summary>
 		/// 优先级
 		/// </summary>
-		private string Level;
+		private string _level;
 
 		/// <summary>
 		/// 支付方式
 		/// </summary>
-		private string PaymentType;
+		private string _paymentType;
 
 		/// <summary>
 		/// 打分周期
 		/// </summary>
-		private string ScoringCycle;
+		private string _scoringCycle;
 
 		/// <summary>
 		/// 状态	销售线索、潜在客户、试用客户、活跃客户
 		/// </summary>
-		private string State;
+		private string _state;
 
 		/// <summary>
 		/// 启用/禁用
 		/// </summary>
-		private bool Active;
+		private bool _active;
 
-		public ClientUser ClientUser { get; private set; }
-
+		public IReadOnlyCollection<ClientUser> ClientUsers => _clientUsers;
 
 		public Client(
 			string name, string shortName, string type, string city, string province,
@@ -80,62 +85,56 @@ namespace Client.Domain.AggregateRoot
 
 		private void Apply(ClientCreatedEvent e)
 		{
-			Version = e.Version;
-			Id = e.AggregateId;
-			Name = e.Name;
-			ShortName = e.ShortName;
-			Type = e.Type;
-			City = e.City;
-			Province = e.Province;
-			Country = e.Country;
-			Level = e.Level;
-			PaymentType = e.PaymentType;
-			ScoringCycle = e.ScoringCycle;
+			_name = e.Name;
+			_shortName = e.ShortName;
+			_type = e.Type;
+			_city = e.City;
+			_province = e.Province;
+			_country = e.Country;
+			_level = e.Level;
+			_paymentType = e.PaymentType;
+			_scoringCycle = e.ScoringCycle;
 		}
 
 		private void Apply(ClientChangedEvent e)
 		{
-			Version = e.Version;
-			Id = e.AggregateId;
-			Name = e.Name;
-			ShortName = e.ShortName;
-			Type = e.Type;
-			City = e.City;
-			Province = e.Province;
-			Country = e.Country;
-			Level = e.Level;
-			PaymentType = e.PaymentType;
-			ScoringCycle = e.ScoringCycle;
-		}
-
-		private void Apply(ClientUserChangedEvent e)
-		{
-			Version = e.Version;
-			ClientUser = e.NewClientUser;
+			_name = e.Name;
+			_shortName = e.ShortName;
+			_type = e.Type;
+			_city = e.City;
+			_province = e.Province;
+			_country = e.Country;
+			_level = e.Level;
+			_paymentType = e.PaymentType;
+			_scoringCycle = e.ScoringCycle;
 		}
 
 		private void Apply(ClientDeletedEvent e)
 		{
-			Version = e.Version;
-			_isDeleted = true;
 		}
-		
+
 		private void Apply(EnableClientChangedEvent e)
 		{
-			Version = e.Version;
-			Active = true;
+			_active = true;
 		}
-		
+
 		private void Apply(DisableClientChangedEvent e)
 		{
-			Version = e.Version;
-			Active = false;
+			_active = false;
 		}
 
 		/// <summary>
 		/// 修改客户信息
 		/// </summary>
-		/// <param name="newClient"></param>
+		/// <param name="province"></param>
+		/// <param name="country"></param>
+		/// <param name="level"></param>
+		/// <param name="name"></param>
+		/// <param name="shortName"></param>
+		/// <param name="type"></param>
+		/// <param name="city"></param>
+		/// <param name="paymentType"></param>
+		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>
 		public void ChangeClient(string name, string shortName, string type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle)
@@ -144,39 +143,15 @@ namespace Client.Domain.AggregateRoot
 				country, level, paymentType, scoringCycle));
 		}
 
-		/// <summary>
-		/// 修改客户联系人信息
-		/// </summary>
-		/// <param name="newClientUser"></param>
-		/// <exception cref="ArgumentException"></exception>
-		public void ChangeClientUser(ClientUser newClientUser)
-		{
-			if (newClientUser == null)
-			{
-				throw new ArgumentException(nameof(newClientUser));
-			}
 
-			ApplyAggregateEvent(new ClientUserChangedEvent(newClientUser));
+		public void EnableClient()
+		{
+			ApplyAggregateEvent(new EnableClientChangedEvent());
 		}
 
-		public void EnableClient(Guid clientId)
+		public void DisableClient()
 		{
-			if (clientId == null)
-			{
-				throw new ArgumentException(nameof(clientId));
-			}
-
-			ApplyAggregateEvent(new EnableClientChangedEvent(clientId));
-		}
-
-		public void DisableClient(Guid clientId)
-		{
-			if (clientId == null)
-			{
-				throw new ArgumentException(nameof(clientId));
-			}
-
-			ApplyAggregateEvent(new DisableClientChangedEvent(clientId));
+			ApplyAggregateEvent(new DisableClientChangedEvent());
 		}
 
 		public void DeleteClient()
@@ -185,9 +160,47 @@ namespace Client.Domain.AggregateRoot
 		}
 
 
-		public void DeleteClientUser()
+		public void DeleteClientUser(Guid clientUserId)
 		{
-			ApplyAggregateEvent(new ClientUserDeletedEvent());
+			ApplyAggregateEvent(new ClientUserDeletedEvent(clientUserId));
+		}
+
+		public void AddClientUser(ClientUser clientUser)
+		{
+			ApplyAggregateEvent(new ClientUserAddedEvent(clientUser));
+		}
+		
+		private void Apply(ClientUserAddedEvent e)
+		{
+			Check.NotNull(e, nameof(e));
+			_clientUsers.Add(e.NewClientUser);
+		}
+
+		/// <summary>
+		/// 修改客户联系人信息
+		/// </summary>
+		/// <param name="newClientUser"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public void UpdateClientUser(ClientUser newClientUser)
+		{
+//			Check.NotNull(newClientUser, nameof(newClientUser));
+//
+//			var oldClientUser = _clientUsers.FirstOrDefault(x => x.Id == newClientUser.Id);
+//			Check.NotNull(oldClientUser, nameof(oldClientUser));
+//
+//			oldClientUser.SetEmail(newClientUser.GetEmail());
+
+			ApplyAggregateEvent(new ClientUserUpdatedEvent(newClientUser));
+		}
+
+		private void Apply(ClientUserUpdatedEvent e)
+		{
+			Check.NotNull(e, nameof(e));
+
+			var oldClientUser = _clientUsers.FirstOrDefault(x => x.Id == e.Id);
+			Check.NotNull(oldClientUser, nameof(oldClientUser));
+
+			oldClientUser = e.NewClientUser;
 		}
 	}
 }
