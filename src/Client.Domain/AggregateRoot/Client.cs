@@ -13,7 +13,8 @@ namespace Client.Domain.AggregateRoot
 		// Using a private collection field, better for DDD Aggregate's encapsulation
 		// so OrderItems cannot be added from "outside the AggregateRoot" directly to the collection,
 		// but only through the method OrderAggrergateRoot.AddOrderItem() which includes behaviour.
-		private List<ClientUser> _clientUsers;
+		private readonly List<ClientUser> _clientUsers = new List<ClientUser>();
+
 
 		/// <summary>
 		/// 客户名称
@@ -74,13 +75,12 @@ namespace Client.Domain.AggregateRoot
 
 		public Client(
 			string name, string shortName, string type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle, string state, bool active,
-			List<ClientUser> clientUsers
+			string country, string level, string paymentType, string scoringCycle, string state, bool active
 		)
 		{
 			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle, state, active,
-				clientUsers));
+				country, level, paymentType, scoringCycle, state, active
+			));
 		}
 
 		private void Apply(ClientCreatedEvent e)
@@ -169,7 +169,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientUserAddedEvent(clientUser));
 		}
-		
+
 		private void Apply(ClientUserAddedEvent e)
 		{
 			Check.NotNull(e, nameof(e));

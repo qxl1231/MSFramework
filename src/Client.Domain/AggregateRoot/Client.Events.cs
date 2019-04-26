@@ -94,8 +94,7 @@ namespace Client.Domain.AggregateRoot
 
 		public ClientCreatedEvent(
 			string name, string shortName, string type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle, string state, bool active,
-			List<ClientUser> clientUsers
+			string country, string level, string paymentType, string scoringCycle, string state, bool active
 		)
 		{
 			Name = name;
@@ -107,7 +106,7 @@ namespace Client.Domain.AggregateRoot
 			Level = level;
 			PaymentType = paymentType;
 			ScoringCycle = scoringCycle;
-			ClientUsers = clientUsers;
+			
 		}
 	}
 
