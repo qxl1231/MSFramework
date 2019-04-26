@@ -48,9 +48,6 @@ namespace Ordering.Domain.AggregateRoot
 
 		private void Apply(OrderCreatedEvent e)
 		{
-			Version = e.Version;
-
-			Id = e.AggregateId;
 			Address = e.Address;
 			_userId = e.UserId;
 			_description = e.Description;
@@ -61,13 +58,11 @@ namespace Ordering.Domain.AggregateRoot
 
 		private void Apply(OrderAddressChangedEvent e)
 		{
-			Version = e.Version;
 			Address = e.NewOrderAddress;
 		}
 
 		private void Apply(OrderDeletedEvent e)
 		{
-			Version = e.Version;
 			_isDeleted = true;
 		}
 
