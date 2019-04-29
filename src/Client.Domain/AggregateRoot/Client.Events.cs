@@ -106,7 +106,6 @@ namespace Client.Domain.AggregateRoot
 			Level = level;
 			PaymentType = paymentType;
 			ScoringCycle = scoringCycle;
-			
 		}
 	}
 
@@ -154,6 +153,24 @@ namespace Client.Domain.AggregateRoot
 		}
 	}
 
+	public class EnableClientUserChangedEvent : AggregateEventBase
+	{
+		public EnableClientUserChangedEvent()
+		{
+		}
+	}
+
+	public class DisableClientUserChangedEvent : AggregateEventBase
+	{
+		public DisableClientUserChangedEvent()
+		{
+			//check client ,get client
+
+			//set active
+		}
+	}
+
+
 	public class ClientUserAddedEvent : AggregateEventBase
 	{
 		public ClientUser NewClientUser { get; }
@@ -171,6 +188,56 @@ namespace Client.Domain.AggregateRoot
 		public ClientUserUpdatedEvent(ClientUser newClientUser)
 		{
 			NewClientUser = newClientUser;
+		}
+	}
+
+	public class ClientSaleAddedEvent : AggregateEventBase
+	{
+		public ClientSale NewClientSale { get; }
+
+		public ClientSaleAddedEvent(ClientSale newClientSale)
+		{
+			NewClientSale = newClientSale;
+		}
+	}
+
+	public class ClientSaleRemovedEvent : AggregateEventBase
+	{
+		public ClientSale NewClientSale { get; }
+
+		public ClientSaleRemovedEvent(ClientSale newClientSale)
+		{
+			NewClientSale = newClientSale;
+		}
+	}
+
+	public class ClientAccountAddedEvent : AggregateEventBase
+	{
+		public ClientAccount NewClientAccount { get; }
+
+		public ClientAccountAddedEvent(ClientAccount newClientAccount)
+		{
+			NewClientAccount = newClientAccount;
+		}
+	}
+
+	public class ClientAccountUpdatedEvent : AggregateEventBase
+	{
+		public ClientAccount NewClientAccount { get; }
+
+		public ClientAccountUpdatedEvent(ClientAccount newClientAccount)
+		{
+			NewClientAccount = newClientAccount;
+		}
+	}
+
+	public class DisableClientAccountChangedEvent : AggregateEventBase
+	{
+		public ClientAccount ClientAccount { get; }
+
+		public DisableClientAccountChangedEvent(ClientAccount clientAccount)
+		{
+			ClientAccount = clientAccount;
 		}
 	}
 }
