@@ -57,10 +57,10 @@ namespace Client.API.Controllers
 
 		#region QUERY
 
-		[HttpGet("{orderId}")]
-		public async Task<ActionResult> GetOrderAsync(string orderId)
+		[HttpGet("{clientId}")]
+		public async Task<ActionResult> GetClientAsync(Guid clientId)
 		{
-			var order = await _clientAppService.GetClientAsync(Guid.NewGuid());
+			var order = await _clientAppService.GetClientAsync(clientId);
 			return Ok(order);
 		}
 
