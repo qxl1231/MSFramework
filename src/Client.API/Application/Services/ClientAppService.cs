@@ -25,15 +25,27 @@ namespace Client.API.Application.Services
 			_writeRepository = writeRepository;
 		}
 
-		public async Task DeleteClient(DeleteClientDTO dto)
-		{
-			var item = await _writeRepository.GetAsync(dto.ClientId);
-			item.DeleteClient();
-		}
+//		public async Task DeleteClient(DeleteClientDTO dto)
+//		{
+//			var item = await _writeRepository.GetAsync(dto.ClientId);
+//			item.DeleteClient();
+//		}
 
 		public async Task ChangeClient(UpdateClientDTO dto)
 		{
 			var item = await _writeRepository.GetAsync(dto.ClientId);
+//			item.ChangeClient(dto);
+		}
+		
+		public async Task EnableClient(Guid clientId)
+		{
+			var item = await _writeRepository.GetAsync(clientId);
+//			item.ChangeClient(dto);
+		}
+		
+		public async Task DisableClient(Guid clientId)
+		{
+			var item = await _writeRepository.GetAsync(clientId);
 //			item.ChangeClient(dto);
 		}
 

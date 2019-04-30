@@ -27,7 +27,7 @@ namespace Client.API.Controllers
 		}
 
 		[HttpPost("")]
-		public async Task<IActionResult> CreateOrderAsync()
+		public async Task<IActionResult> CreateClient()
 		{
 			var random = new Random();
 			var count = random.Next(2, 5);
@@ -39,15 +39,20 @@ namespace Client.API.Controllers
 			return Ok();
 		}
 
-		[HttpDelete("{clientId}")]
-		public async Task<IActionResult> DeleteOrderAsync(Guid clientId)
+		[HttpPut("{clientId}")]
+		public async Task<IActionResult> DisableClientAsync(Guid clientId)
 		{
-			await _clientAppService.DeleteClient(new DeleteClientDTO()
-			{
-				ClientId = clientId
-			});
+			await _clientAppService.DisableClient(clientId);
 			return Ok();
 		}
+		
+		[HttpPut("{clientId}")]
+		public async Task<IActionResult> EnableClientAsync(Guid clientId)
+		{
+			await _clientAppService.EnableClient(clientId);
+			return Ok();
+		}
+
 
 
 		#region QUERY

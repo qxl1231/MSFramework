@@ -9,7 +9,8 @@ namespace Client.API.Application.Services
 {
 	public interface IClientAppService : IApplicationService
 	{
-		Task DeleteClient(DeleteClientDTO dto);
+		Task DisableClient(Guid clientId);
+		Task EnableClient(Guid clientId);
 
 		Task ChangeClient(UpdateClientDTO dto);
 
