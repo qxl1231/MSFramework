@@ -5,31 +5,43 @@ using Client.Domain.AggregateRoot;
 
 namespace Client.Infrastructure.EntityConfigurations
 {
-	public class OrderItemEntityTypeConfiguration : EntityTypeConfigurationBase<ClientUser>
+	public class ClientUserEntityTypeConfiguration : EntityTypeConfigurationBase<ClientUser>
 	{
 		public override Type DbContextType => typeof(ClientContext);
-		
-		public override void Configure(EntityTypeBuilder<ClientUser> orderItemConfiguration)
+
+		public override void Configure(EntityTypeBuilder<ClientUser> clientUserConfiguration)
 		{
-			orderItemConfiguration.HasKey(o => o.Id);
+			clientUserConfiguration.HasKey(o => o.Id);
 
-			orderItemConfiguration.Property<decimal>("Discount")
-				.IsRequired();
+			clientUserConfiguration.Property<DateTime>("CreationTime").IsRequired();
 
-			orderItemConfiguration.Property<int>("ProductId")
-				.IsRequired();
+			clientUserConfiguration.Property<Guid>("ClientId").IsRequired();
 
-			orderItemConfiguration.Property<string>("ProductName")
-				.IsRequired();
+			clientUserConfiguration.Property<string>("FirstName").IsRequired();
 
-			orderItemConfiguration.Property<decimal>("UnitPrice")
-				.IsRequired();
+			clientUserConfiguration.Property<string>("LastName").IsRequired();
 
-			orderItemConfiguration.Property<int>("Units")
-				.IsRequired();
+			clientUserConfiguration.Property<string>("Civility").IsRequired();
 
-			orderItemConfiguration.Property<string>("PictureUrl")
-				.IsRequired(false);
+			clientUserConfiguration.Property<string>("Title").IsRequired();
+
+			clientUserConfiguration.Property<string>("Email").IsRequired();
+
+			clientUserConfiguration.Property<string>("Phone").IsRequired(false);
+
+			clientUserConfiguration.Property<bool>("Active").IsRequired();
+
+			clientUserConfiguration.Property<string>("Mobile").IsRequired();
+
+			clientUserConfiguration.Property<string>("TitleDescription").IsRequired();
+
+			clientUserConfiguration.Property<string>("IndustryDescription").IsRequired();
+
+			clientUserConfiguration.Property<string>("Department").IsRequired();
+
+			clientUserConfiguration.Property<string>("DepartmentDescription").IsRequired(false);
+
+			clientUserConfiguration.Property<int>("ScoringPriority").IsRequired(false);
 		}
 	}
 }
