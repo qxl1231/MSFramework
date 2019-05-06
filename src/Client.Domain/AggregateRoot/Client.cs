@@ -100,21 +100,7 @@ namespace Client.Domain.AggregateRoot
 				country, level, paymentType, scoringCycle, ClientStateType.TryCustom, true
 			));
 		}
-
-		private void Apply(ClientCreatedEvent e)
-		{
-			_name = e.Name;
-			_shortName = e.ShortName;
-			_type = e.Type;
-			_city = e.City;
-			_province = e.Province;
-			_country = e.Country;
-			_level = e.Level;
-			_paymentType = e.PaymentType;
-			_scoringCycle = e.ScoringCycle;
-		}
-
-
+		
 		/// <summary>
 		/// 修改客户信息
 		/// </summary>
@@ -135,6 +121,115 @@ namespace Client.Domain.AggregateRoot
 				country, level, paymentType, scoringCycle));
 		}
 
+		/// <summary>
+		/// 启用客户
+		/// </summary>
+		public void EnableClient()
+		{
+			ApplyAggregateEvent(new EnableClientChangedEvent());
+		}
+		
+		/// <summary>
+		/// 禁用客户
+		/// </summary>
+		public void DisableClient()
+		{
+			ApplyAggregateEvent(new DisableClientChangedEvent());
+		}
+		
+		/// <summary>
+		/// 添加联系人
+		/// </summary>
+		/// <param name="clientUser"></param>
+		public void AddClientUser(ClientUser clientUser)
+		{
+			ApplyAggregateEvent(new ClientUserAddedEvent(clientUser));
+		}
+		
+		/// <summary>
+		/// 修改客户联系人信息
+		/// </summary>
+		/// <param name="newClientUser"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public void UpdateClientUser(ClientUser newClientUser)
+		{
+			ApplyAggregateEvent(new ClientUserUpdatedEvent(newClientUser));
+		}
+		
+		/// <summary>
+		/// 启用联系人
+		/// </summary>
+		public void EnableClientUser(ClientUser clientUser)
+		{
+			ApplyAggregateEvent(new EnableClientUserChangedEvent());
+		}
+		
+		/// <summary>
+		/// 禁用联系人
+		/// </summary>
+		public void DisableClientUser(ClientUser clientUser)
+		{
+			ApplyAggregateEvent(new DisableClientUserChangedEvent());
+		}
+		
+		/// <summary>
+		/// 关联客户销售
+		/// </summary>
+		/// <param name="clientSale"></param>
+		public void AddClientSale(ClientSale clientSale)
+		{
+			ApplyAggregateEvent(new ClientSaleAddedEvent(clientSale));
+		}
+		
+		/// <summary>
+		/// 取消关联客户销售
+		/// </summary>
+		/// <param name="clientSale"></param>
+		public void RemoveClientSale(ClientSale clientSale)
+		{
+			ApplyAggregateEvent(new ClientSaleRemovedEvent(clientSale));
+		}
+		
+		/// <summary>
+		/// 添加客户账户
+		/// </summary>
+		/// <param name="clientAccount"></param>
+		public void AddClientAccount(ClientAccount clientAccount)
+		{
+			ApplyAggregateEvent(new ClientAccountAddedEvent(clientAccount));
+		}
+		
+		/// <summary>
+		/// 修改客户账户信息
+		/// </summary>
+		/// <param name="newClientAccount"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public void UpdateClientAccount(ClientAccount newClientAccount)
+		{
+			ApplyAggregateEvent(new ClientAccountUpdatedEvent(newClientAccount));
+		}
+		
+		/// <summary>
+		/// 删除客户账户
+		/// </summary>
+		public void RemoveClientAccount(ClientAccount clientAccount)
+		{
+			ApplyAggregateEvent(new DisableClientAccountChangedEvent(clientAccount));
+		}
+		
+		private void Apply(ClientCreatedEvent e)
+		{
+			_name = e.Name;
+			_shortName = e.ShortName;
+			_type = e.Type;
+			_city = e.City;
+			_province = e.Province;
+			_country = e.Country;
+			_level = e.Level;
+			_paymentType = e.PaymentType;
+			_scoringCycle = e.ScoringCycle;
+		}
+
 		private void Apply(ClientChangedEvent e)
 		{
 			_name = e.Name;
@@ -148,25 +243,9 @@ namespace Client.Domain.AggregateRoot
 			_scoringCycle = e.ScoringCycle;
 		}
 
-		/// <summary>
-		/// 启用客户
-		/// </summary>
-		public void EnableClient()
-		{
-			ApplyAggregateEvent(new EnableClientChangedEvent());
-		}
-
 		private void Apply(EnableClientChangedEvent e)
 		{
 			_active = true;
-		}
-
-		/// <summary>
-		/// 禁用客户
-		/// </summary>
-		public void DisableClient()
-		{
-			ApplyAggregateEvent(new DisableClientChangedEvent());
 		}
 
 		private void Apply(DisableClientChangedEvent e)
@@ -174,29 +253,10 @@ namespace Client.Domain.AggregateRoot
 			_active = false;
 		}
 
-		/// <summary>
-		/// 添加联系人
-		/// </summary>
-		/// <param name="clientUser"></param>
-		public void AddClientUser(ClientUser clientUser)
-		{
-			ApplyAggregateEvent(new ClientUserAddedEvent(clientUser));
-		}
-
 		private void Apply(ClientUserAddedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
 			_clientUsers.Add(e.NewClientUser);
-		}
-
-		/// <summary>
-		/// 修改客户联系人信息
-		/// </summary>
-		/// <param name="newClientUser"></param>
-		/// <exception cref="ArgumentException"></exception>
-		public void UpdateClientUser(ClientUser newClientUser)
-		{
-			ApplyAggregateEvent(new ClientUserUpdatedEvent(newClientUser));
 		}
 
 		private void Apply(ClientUserUpdatedEvent e)
@@ -209,26 +269,10 @@ namespace Client.Domain.AggregateRoot
 			oldClientUser = e.NewClientUser;
 		}
 
-		/// <summary>
-		/// 启用联系人
-		/// </summary>
-		public void EnableClientUser(ClientUser clientUser)
-		{
-			ApplyAggregateEvent(new EnableClientUserChangedEvent());
-		}
-
 		private void Apply(EnableClientUserChangedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
 			_clientUsers.Add(e.ClientUser);
-		}
-
-		/// <summary>
-		/// 禁用联系人
-		/// </summary>
-		public void DisableClientUser(ClientUser clientUser)
-		{
-			ApplyAggregateEvent(new DisableClientUserChangedEvent());
 		}
 
 		private void Apply(DisableClientUserChangedEvent e)
@@ -237,28 +281,10 @@ namespace Client.Domain.AggregateRoot
 			_clientUsers.Remove(e.ClientUser);
 		}
 
-		/// <summary>
-		/// 关联客户销售
-		/// </summary>
-		/// <param name="clientSale"></param>
-		public void AddClientSale(ClientSale clientSale)
-		{
-			ApplyAggregateEvent(new ClientSaleAddedEvent(clientSale));
-		}
-
 		private void Apply(ClientSaleAddedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
 			_clientSales.Add(e.NewClientSale);
-		}
-
-		/// <summary>
-		/// 取消关联客户销售
-		/// </summary>
-		/// <param name="clientSale"></param>
-		public void RemoveClientSale(ClientSale clientSale)
-		{
-			ApplyAggregateEvent(new ClientSaleRemovedEvent(clientSale));
 		}
 
 		private void Apply(ClientSaleRemovedEvent e)
@@ -267,29 +293,10 @@ namespace Client.Domain.AggregateRoot
 			_clientSales.Remove(e.NewClientSale);
 		}
 
-		/// <summary>
-		/// 添加客户账户
-		/// </summary>
-		/// <param name="clientAccount"></param>
-		public void AddClientAccount(ClientAccount clientAccount)
-		{
-			ApplyAggregateEvent(new ClientAccountAddedEvent(clientAccount));
-		}
-
 		private void Apply(ClientAccountAddedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
 			_clientAccounts.Add(e.NewClientAccount);
-		}
-
-		/// <summary>
-		/// 修改客户账户信息
-		/// </summary>
-		/// <param name="newClientAccount"></param>
-		/// <exception cref="ArgumentException"></exception>
-		public void UpdateClientAccount(ClientAccount newClientAccount)
-		{
-			ApplyAggregateEvent(new ClientAccountUpdatedEvent(newClientAccount));
 		}
 
 		private void Apply(ClientAccountUpdatedEvent e)
@@ -301,15 +308,7 @@ namespace Client.Domain.AggregateRoot
 
 			oldClientAccount = e.NewClientAccount;
 		}
-
-		/// <summary>
-		/// 删除客户账户
-		/// </summary>
-		public void RemoveClientAccount(ClientAccount clientAccount)
-		{
-			ApplyAggregateEvent(new DisableClientAccountChangedEvent(clientAccount));
-		}
-
+	
 		private void Apply(DisableClientAccountChangedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
