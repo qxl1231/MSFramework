@@ -64,7 +64,8 @@ namespace Client.Domain.AggregateRoot
 		/// 启用/禁用
 		/// </summary>
 		private bool _active;
-
+		
+		public Address Address { get; private set; }
 		public IReadOnlyCollection<ClientUser> ClientUsers => _clientUsers;
 		public IReadOnlyCollection<ClientSale> ClientSales => _clientSales;
 		public IReadOnlyCollection<ClientAccount> ClientAccounts => _clientAccounts;
@@ -92,13 +93,11 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 修改客户信息
 		/// </summary>
-		/// <param name="province"></param>
-		/// <param name="country"></param>
 		/// <param name="level"></param>
 		/// <param name="name"></param>
 		/// <param name="shortName"></param>
 		/// <param name="type"></param>
-		/// <param name="city"></param>
+		/// <param name="address"></param>
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>

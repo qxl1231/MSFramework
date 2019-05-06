@@ -41,7 +41,7 @@ namespace Client.Infrastructure.EntityConfigurations
 
 			clientUserConfiguration.Property<string>("DepartmentDescription").IsRequired(false);
 
-			clientUserConfiguration.Property<int>("ScoringPriority").IsRequired(false);
+			clientUserConfiguration.Property<int>("ScoringPriority");
 		}
 	}
 }

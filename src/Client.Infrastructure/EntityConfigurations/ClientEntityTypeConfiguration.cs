@@ -16,19 +16,13 @@ namespace Client.Infrastructure.EntityConfigurations
 			clientConfiguration.HasKey(o => o.Id);
 
 			//Address value object persisted as owned entity type supported since EF Core 2.0
-//			clientConfiguration.OwnsOne(o => o.Address);
+			clientConfiguration.OwnsOne(o => o.Address);
 
 			clientConfiguration.Property<string>("Name").IsRequired();
 
 			clientConfiguration.Property<string>("ShortName").IsRequired();
 
 			clientConfiguration.Property<string>("Type").IsRequired();
-
-			clientConfiguration.Property<string>("City").IsRequired();
-
-			clientConfiguration.Property<string>("Province").IsRequired();
-
-			clientConfiguration.Property<string>("Country").IsRequired();
 
 			clientConfiguration.Property<string>("Level").IsRequired();
 
