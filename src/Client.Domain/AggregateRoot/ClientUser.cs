@@ -75,13 +75,6 @@ namespace Client.Domain.AggregateRoot
 		/// </summary>
 		private int _scoringPriority;
 
-
-		public int ScoringPriority2
-		{
-			get => _scoringPriority;
-			set => _scoringPriority = value;
-		}
-		
 		public Guid GetClientId()
 		{
 			return _clientId;
@@ -215,6 +208,11 @@ namespace Client.Domain.AggregateRoot
 		public int GetScoringPriority()
 		{
 			return _scoringPriority;
+		}
+		
+		public void SetScoringPriority(int scoringPriority)
+		{
+			_scoringPriority = scoringPriority;
 		}
 
 	}
