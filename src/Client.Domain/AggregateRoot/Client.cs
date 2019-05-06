@@ -70,6 +70,9 @@ namespace Client.Domain.AggregateRoot
 		public IReadOnlyCollection<ClientSale> ClientSales => _clientSales;
 		public IReadOnlyCollection<ClientAccount> ClientAccounts => _clientAccounts;
 
+		public Client()
+		{
+		}
 		/// <summary>
 		/// 创建客户
 		/// </summary>
