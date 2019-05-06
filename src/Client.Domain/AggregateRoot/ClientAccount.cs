@@ -5,7 +5,6 @@ namespace Client.Domain.AggregateRoot
 {
 	public class ClientAccount : AggregateRootBase
 	{
-		private Guid _clientId;
 
 		private string _name;
 
@@ -28,9 +27,6 @@ namespace Client.Domain.AggregateRoot
 		/// 结束日期
 		/// </summary>
 		private DateTime _end;
-
-
-		public Guid ClientId => _clientId;
 
 		public string Name => _name;
 

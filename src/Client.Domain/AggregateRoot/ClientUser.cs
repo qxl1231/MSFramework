@@ -6,11 +6,6 @@ namespace Client.Domain.AggregateRoot
 	public class ClientUser : AggregateRootBase
 	{
 		/// <summary>
-		/// 客户ID
-		/// </summary>
-		private Guid _clientId;
-
-		/// <summary>
 		/// 名
 		/// </summary>
 		private string _firstName;
@@ -74,16 +69,6 @@ namespace Client.Domain.AggregateRoot
 		/// 打分权重
 		/// </summary>
 		private int _scoringPriority;
-
-		public Guid GetClientId()
-		{
-			return _clientId;
-		}
-
-		public void SetClientId(Guid clientId)
-		{
-			_clientId = clientId;
-		}
 
 		public string GetFirstName()
 		{
