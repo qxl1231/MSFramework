@@ -67,7 +67,7 @@ namespace Client.Domain.AggregateRoot
 		
 		public Address Address { get; private set; }
 		public IReadOnlyCollection<ClientUser> ClientUsers => _clientUsers;
-		public IReadOnlyCollection<ClientSale> ClientSales => _clientSales;
+//		public IReadOnlyCollection<ClientSale> ClientSales => _clientSales;
 		public IReadOnlyCollection<ClientAccount> ClientAccounts => _clientAccounts;
 
 		public Client()

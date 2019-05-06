@@ -37,14 +37,14 @@ namespace Client.Infrastructure.EntityConfigurations
 			clientConfiguration.Property<DateTime>("CreationTime").IsRequired();
 
 			var navigationClientUsers = clientConfiguration.Metadata.FindNavigation(nameof(ClientEntity.ClientUsers));
-			var navigationClientSales = clientConfiguration.Metadata.FindNavigation(nameof(ClientEntity.ClientSales));
+//			var navigationClientSales = clientConfiguration.Metadata.FindNavigation(nameof(ClientEntity.ClientSales));
 			var navigationClientAccounts =
 				clientConfiguration.Metadata.FindNavigation(nameof(ClientEntity.ClientAccounts));
 
 			// DDD Patterns comment:
 			//Set as field (New since EF 1.1) to access the ClientItem collection property through its field
 			navigationClientUsers.SetPropertyAccessMode(PropertyAccessMode.Field);
-			navigationClientSales.SetPropertyAccessMode(PropertyAccessMode.Field);
+//			navigationClientSales.SetPropertyAccessMode(PropertyAccessMode.Field);
 			navigationClientAccounts.SetPropertyAccessMode(PropertyAccessMode.Field);
 		}
 	}
