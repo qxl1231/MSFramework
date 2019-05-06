@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Client.Domain.AggregateRoot;
 
 namespace Client.API.Application.DTO
 {
@@ -23,7 +24,7 @@ namespace Client.API.Application.DTO
 		/// </summary>
 
 
-		public string Type { get; set; }
+		public ClientType Type { get; set; }
 
 		/// <summary>
 		/// 城市
@@ -68,7 +69,7 @@ namespace Client.API.Application.DTO
 		/// </summary>
 
 
-		public string State { get; set; }
+		public ClientStateType State { get; set; }
 
 		/// <summary>
 		/// 启用/禁用
@@ -80,7 +81,7 @@ namespace Client.API.Application.DTO
 		{
 		}
 
-		public CreateClientDTO(string name, string shortName, string type, string city, string province,
+		public CreateClientDTO(string name, string shortName, ClientType type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle)
 		{
 			Name = name;

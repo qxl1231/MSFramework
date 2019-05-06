@@ -33,7 +33,7 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 客户类型 -> 公墓基金、私募基金
 		/// </summary>
-		private string _type;
+		private ClientType _type;
 
 		/// <summary>
 		/// 城市
@@ -68,7 +68,7 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 状态	销售线索、潜在客户、试用客户、活跃客户
 		/// </summary>
-		private string _state;
+		private ClientStateType _state;
 
 		/// <summary>
 		/// 启用/禁用
@@ -92,12 +92,12 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		public Client(
-			string name, string shortName, string type, string city, string province,
+			string name, string shortName, ClientType type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle
 		)
 		{
 			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle, "1", true
+				country, level, paymentType, scoringCycle, ClientStateType.ActiveCustom, true
 			));
 		}
 
@@ -128,7 +128,7 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public void ChangeClient(string name, string shortName, string type, string city, string province,
+		public void ChangeClient(string name, string shortName, ClientType type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle)
 		{
 			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, city, province,
@@ -306,7 +306,7 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 删除客户账户
 		/// </summary>
-		public void DisableClientAccount(ClientAccount clientAccount)
+		public void RemoveClientAccount(ClientAccount clientAccount)
 		{
 			ApplyAggregateEvent(new DisableClientAccountChangedEvent(clientAccount));
 		}

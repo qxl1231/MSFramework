@@ -37,7 +37,7 @@ namespace Client.Domain.AggregateRoot
 		/// 客户类型 -> 公墓基金、私募基金
 		/// </summary>
 
-		public string Type { get; }
+		public ClientType Type { get; }
 
 		/// <summary>
 		/// 城市
@@ -82,7 +82,7 @@ namespace Client.Domain.AggregateRoot
 		/// </summary>
 
 
-		public string State { get; }
+		public ClientStateType State { get; }
 
 		/// <summary>
 		/// 启用/禁用
@@ -93,8 +93,8 @@ namespace Client.Domain.AggregateRoot
 		public List<ClientUser> ClientUsers { get; }
 
 		public ClientCreatedEvent(
-			string name, string shortName, string type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle, string state, bool active
+			string name, string shortName, ClientType type, string city, string province,
+			string country, string level, string paymentType, string scoringCycle, ClientStateType state, bool active
 		)
 		{
 			Name = name;
@@ -113,7 +113,7 @@ namespace Client.Domain.AggregateRoot
 	{
 		public string Name { get; }
 		public string ShortName { get; }
-		public string Type { get; }
+		public ClientType Type { get; }
 		public string City { get; }
 		public string Province { get; }
 		public string Country { get; }
@@ -121,7 +121,7 @@ namespace Client.Domain.AggregateRoot
 		public string PaymentType { get; }
 		public string ScoringCycle { get; }
 
-		public ClientChangedEvent(string name, string shortName, string type, string city, string province,
+		public ClientChangedEvent(string name, string shortName, ClientType type, string city, string province,
 			string country, string level, string paymentType, string scoringCycle)
 		{
 			Name = name;
