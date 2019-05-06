@@ -40,14 +40,14 @@ namespace Client.API.Controllers
 			return Ok();
 		}
 
-		[HttpPut("{clientId}")]
+		[HttpPut("disable/{clientId}")]
 		public async Task<IActionResult> DisableClientAsync(Guid clientId)
 		{
 			await _clientAppService.DisableClient(clientId);
 			return Ok();
 		}
 		
-		[HttpPut("{clientId}")]
+		[HttpPut("enable/{clientId}")]
 		public async Task<IActionResult> EnableClientAsync(Guid clientId)
 		{
 			await _clientAppService.EnableClient(clientId);
