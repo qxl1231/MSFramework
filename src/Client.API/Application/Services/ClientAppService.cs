@@ -36,13 +36,13 @@ namespace Client.API.Application.Services
 			var item = await _writeRepository.GetAsync(dto.ClientId);
 //			item.ChangeClient(dto);
 		}
-		
+
 		public async Task EnableClient(Guid clientId)
 		{
 			var item = await _writeRepository.GetAsync(clientId);
 //			item.ChangeClient(dto);
 		}
-		
+
 		public async Task DisableClient(Guid clientId)
 		{
 			var item = await _writeRepository.GetAsync(clientId);
@@ -52,8 +52,8 @@ namespace Client.API.Application.Services
 		public async Task CreateClient(CreateClientDTO dto)
 		{
 			var client = new Domain.AggregateRoot.Client(
-				dto.Name,dto.ShortName,dto.Type,dto.City,dto.Province,
-				dto.Country,dto.Level,dto.PaymentType,dto.ScoringCycle);
+				dto.Name, dto.ShortName, dto.Type, 
+				new Address(dto.City, dto.Province, dto.Country), dto.Level, dto.PaymentType, dto.ScoringCycle);
 //				client.RegisterDomainEvent(new ClientStartedEvent(Session.UserId, client.Id));
 			await _writeRepository.InsertAsync(client);
 		}

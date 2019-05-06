@@ -36,19 +36,9 @@ namespace Client.Domain.AggregateRoot
 		private ClientType _type;
 
 		/// <summary>
-		/// 城市
+		/// 地址
 		/// </summary>
-		private string _city;
-
-		/// <summary>
-		/// 省
-		/// </summary>
-		private string _province;
-
-		/// <summary>
-		/// 国家
-		/// </summary>
-		private string _country;
+		private Address _address;
 
 		/// <summary>
 		/// 优先级
@@ -92,15 +82,15 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		public Client(
-			string name, string shortName, ClientType type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle
+			string name, string shortName, ClientType type, Address address,
+			string level, string paymentType, string scoringCycle
 		)
 		{
-			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle, ClientStateType.TryCustom, true
+			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type,
+				address, level, paymentType, scoringCycle, ClientStateType.TryCustom, true
 			));
 		}
-		
+
 		/// <summary>
 		/// 修改客户信息
 		/// </summary>
@@ -114,11 +104,11 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public void ChangeClient(string name, string shortName, ClientType type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle)
+		public void ChangeClient(string name, string shortName, ClientType type, 
+			Address address, string level, string paymentType, string scoringCycle)
 		{
-			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle));
+			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, 
+				address, level, paymentType, scoringCycle));
 		}
 
 		/// <summary>
@@ -128,7 +118,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new EnableClientChangedEvent());
 		}
-		
+
 		/// <summary>
 		/// 禁用客户
 		/// </summary>
@@ -136,7 +126,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new DisableClientChangedEvent());
 		}
-		
+
 		/// <summary>
 		/// 添加联系人
 		/// </summary>
@@ -145,7 +135,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientUserAddedEvent(clientUser));
 		}
-		
+
 		/// <summary>
 		/// 修改客户联系人信息
 		/// </summary>
@@ -155,7 +145,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientUserUpdatedEvent(newClientUser));
 		}
-		
+
 		/// <summary>
 		/// 启用联系人
 		/// </summary>
@@ -163,7 +153,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new EnableClientUserChangedEvent());
 		}
-		
+
 		/// <summary>
 		/// 禁用联系人
 		/// </summary>
@@ -171,7 +161,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new DisableClientUserChangedEvent());
 		}
-		
+
 		/// <summary>
 		/// 关联客户销售
 		/// </summary>
@@ -180,7 +170,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientSaleAddedEvent(clientSale));
 		}
-		
+
 		/// <summary>
 		/// 取消关联客户销售
 		/// </summary>
@@ -189,7 +179,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientSaleRemovedEvent(clientSale));
 		}
-		
+
 		/// <summary>
 		/// 添加客户账户
 		/// </summary>
@@ -198,7 +188,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientAccountAddedEvent(clientAccount));
 		}
-		
+
 		/// <summary>
 		/// 修改客户账户信息
 		/// </summary>
@@ -208,7 +198,7 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new ClientAccountUpdatedEvent(newClientAccount));
 		}
-		
+
 		/// <summary>
 		/// 删除客户账户
 		/// </summary>
@@ -216,15 +206,13 @@ namespace Client.Domain.AggregateRoot
 		{
 			ApplyAggregateEvent(new DisableClientAccountChangedEvent(clientAccount));
 		}
-		
+
 		private void Apply(ClientCreatedEvent e)
 		{
 			_name = e.Name;
 			_shortName = e.ShortName;
 			_type = e.Type;
-			_city = e.City;
-			_province = e.Province;
-			_country = e.Country;
+			_address = e.Address;
 			_level = e.Level;
 			_paymentType = e.PaymentType;
 			_scoringCycle = e.ScoringCycle;
@@ -235,9 +223,7 @@ namespace Client.Domain.AggregateRoot
 			_name = e.Name;
 			_shortName = e.ShortName;
 			_type = e.Type;
-			_city = e.City;
-			_province = e.Province;
-			_country = e.Country;
+			_address = e.Address;
 			_level = e.Level;
 			_paymentType = e.PaymentType;
 			_scoringCycle = e.ScoringCycle;
@@ -308,7 +294,7 @@ namespace Client.Domain.AggregateRoot
 
 			oldClientAccount = e.NewClientAccount;
 		}
-	
+
 		private void Apply(DisableClientAccountChangedEvent e)
 		{
 			Check.NotNull(e, nameof(e));

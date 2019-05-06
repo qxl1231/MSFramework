@@ -24,63 +24,41 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 客户名称
 		/// </summary>
-
 		public string Name { get; }
 
 		/// <summary>
 		/// 客户简称
 		/// </summary>
-
 		public string ShortName { get; }
 
 		/// <summary>
 		/// 客户类型 -> 公墓基金、私募基金
 		/// </summary>
-
 		public ClientType Type { get; }
-
+		
 		/// <summary>
-		/// 城市
+		/// 地区
 		/// </summary>
-
-		public string City { get; }
-
-		/// <summary>
-		/// 省
-		/// </summary>
-
-		public string Province { get; }
-
-		/// <summary>
-		/// 国家
-		/// </summary>
-
-		public string Country { get; }
+		public Address Address{ get; }
 
 		/// <summary>
 		/// 优先级
 		/// </summary>
-
-
 		public string Level { get; }
 
 		/// <summary>
 		/// 支付方式
 		/// </summary>
-
-
 		public string PaymentType { get; }
 
 		/// <summary>
 		/// 打分周期
 		/// </summary>
-
 		public string ScoringCycle { get; }
 
 		/// <summary>
 		/// 状态	销售线索、潜在客户、试用客户、活跃客户
 		/// </summary>
-
 
 		public ClientStateType State { get; }
 
@@ -93,16 +71,14 @@ namespace Client.Domain.AggregateRoot
 		public List<ClientUser> ClientUsers { get; }
 
 		public ClientCreatedEvent(
-			string name, string shortName, ClientType type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle, ClientStateType state, bool active
+			string name, string shortName, ClientType type, Address address,
+			 string level, string paymentType, string scoringCycle, ClientStateType state, bool active
 		)
 		{
 			Name = name;
 			ShortName = shortName;
 			Type = type;
-			City = city;
-			Province = province;
-			Country = country;
+			Address = address;
 			Level = level;
 			PaymentType = paymentType;
 			ScoringCycle = scoringCycle;
@@ -114,22 +90,20 @@ namespace Client.Domain.AggregateRoot
 		public string Name { get; }
 		public string ShortName { get; }
 		public ClientType Type { get; }
-		public string City { get; }
-		public string Province { get; }
-		public string Country { get; }
+		
+		public Address Address{ get; }
 		public string Level { get; }
 		public string PaymentType { get; }
 		public string ScoringCycle { get; }
 
-		public ClientChangedEvent(string name, string shortName, ClientType type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle)
+		public ClientChangedEvent(string name, string shortName, ClientType type, 
+			Address address, string level, string paymentType, string scoringCycle)
 		{
 			Name = name;
 			ShortName = shortName;
 			Type = type;
-			City = city;
-			Province = province;
-			Country = country;
+			Address = address;
+			
 			Level = level;
 			PaymentType = paymentType;
 			ScoringCycle = scoringCycle;
@@ -156,6 +130,7 @@ namespace Client.Domain.AggregateRoot
 	public class EnableClientUserChangedEvent : AggregateEventBase
 	{
 		public ClientUser ClientUser { get; }
+
 		public EnableClientUserChangedEvent()
 		{
 		}
