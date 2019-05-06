@@ -155,6 +155,7 @@ namespace Client.Domain.AggregateRoot
 
 	public class EnableClientUserChangedEvent : AggregateEventBase
 	{
+		public ClientUser ClientUser { get; }
 		public EnableClientUserChangedEvent()
 		{
 		}
@@ -162,6 +163,8 @@ namespace Client.Domain.AggregateRoot
 
 	public class DisableClientUserChangedEvent : AggregateEventBase
 	{
+		public ClientUser ClientUser { get; }
+
 		public DisableClientUserChangedEvent()
 		{
 			//check client ,get client

@@ -97,7 +97,7 @@ namespace Client.Domain.AggregateRoot
 		)
 		{
 			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type, city, province,
-				country, level, paymentType, scoringCycle, ClientStateType.ActiveCustom, true
+				country, level, paymentType, scoringCycle, ClientStateType.TryCustom, true
 			));
 		}
 
@@ -161,7 +161,6 @@ namespace Client.Domain.AggregateRoot
 			_active = true;
 		}
 
-
 		/// <summary>
 		/// 禁用客户
 		/// </summary>
@@ -174,7 +173,6 @@ namespace Client.Domain.AggregateRoot
 		{
 			_active = false;
 		}
-
 
 		/// <summary>
 		/// 添加联系人
@@ -222,6 +220,7 @@ namespace Client.Domain.AggregateRoot
 		private void Apply(EnableClientUserChangedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
+			_clientUsers.Add(e.ClientUser);
 		}
 
 		/// <summary>
@@ -235,8 +234,8 @@ namespace Client.Domain.AggregateRoot
 		private void Apply(DisableClientUserChangedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
+			_clientUsers.Remove(e.ClientUser);
 		}
-
 
 		/// <summary>
 		/// 关联客户销售
