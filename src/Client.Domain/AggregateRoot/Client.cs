@@ -75,9 +75,7 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="name"></param>
 		/// <param name="shortName"></param>
 		/// <param name="type"></param>
-		/// <param name="city"></param>
-		/// <param name="province"></param>
-		/// <param name="country"></param>
+		/// <param name="address"></param>
 		/// <param name="level"></param>
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
