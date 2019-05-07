@@ -23,8 +23,8 @@ namespace Client.API.Application.EventHandler
 		{
 //			var dto = new CreateClientDTO( @event.UserId, @event.City, @event.Street,
 //				@event.State, @event.Country, @event.ZipCode, @event.Description);
-			// IdentifiedCommand<> 必须保证只执行一次
-//			await _commandBus.CreateClient(dto);
+//			 IdentifiedCommand<> 必须保证只执行一次
+			await _commandBus.CreateClient(new CreateClientDTO());
 		}
 	}
 }

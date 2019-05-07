@@ -17,8 +17,6 @@ namespace Client.API.Application.Event
 
 		public string Country { get; set; }
 
-		public string ZipCode { get; set; }
-
 		public string Description { get; }
 
 
@@ -30,7 +28,6 @@ namespace Client.API.Application.Event
 			Street = street;
 			State = state;
 			Country = country;
-			ZipCode = zipCode;
 			Description = description;
 		}
 	}
