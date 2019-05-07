@@ -31,7 +31,7 @@ namespace Client.API.Controllers
 		public async Task<IActionResult> CreateClient()
 		{
 			await _clientAppService.CreateClient(new CreateClientDTO("富国基金公司", "富国基金", ClientType.PublicFund, "富国基金", "富国基金", "富国基金",
-				"富国基金", "预付费"
+				Level.A, PaymentType.PrePay
 				, "1,2,3,4"
 			));
 			// FOR TEST

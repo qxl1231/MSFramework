@@ -44,12 +44,12 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 优先级
 		/// </summary>
-		public string Level { get; }
+		public Level Level { get; }
 
 		/// <summary>
 		/// 支付方式
 		/// </summary>
-		public string PaymentType { get; }
+		public PaymentType PaymentType { get; }
 
 		/// <summary>
 		/// 打分周期
@@ -72,7 +72,7 @@ namespace Client.Domain.AggregateRoot
 
 		public ClientCreatedEvent(
 			string name, string shortName, ClientType type, Address address,
-			 string level, string paymentType, string scoringCycle, ClientStateType state, bool active
+			 Level level, PaymentType paymentType, string scoringCycle, ClientStateType state, bool active
 		)
 		{
 			Name = name;
@@ -92,12 +92,12 @@ namespace Client.Domain.AggregateRoot
 		public ClientType Type { get; }
 		
 		public Address Address{ get; }
-		public string Level { get; }
-		public string PaymentType { get; }
+		public Level Level { get; }
+		public PaymentType PaymentType { get; }
 		public string ScoringCycle { get; }
 
 		public ClientChangedEvent(string name, string shortName, ClientType type, 
-			Address address, string level, string paymentType, string scoringCycle)
+			Address address, Level level, PaymentType paymentType, string scoringCycle)
 		{
 			Name = name;
 			ShortName = shortName;

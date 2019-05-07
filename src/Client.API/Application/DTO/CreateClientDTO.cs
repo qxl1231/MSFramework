@@ -49,14 +49,14 @@ namespace Client.API.Application.DTO
 		/// </summary>
 
 
-		public string Level { get; set; }
+		public Level Level { get; set; }
 
 		/// <summary>
 		/// 支付方式
 		/// </summary>
 
 
-		public string PaymentType { get; set; }
+		public PaymentType PaymentType { get; set; }
 
 		/// <summary>
 		/// 打分周期
@@ -82,7 +82,7 @@ namespace Client.API.Application.DTO
 		}
 
 		public CreateClientDTO(string name, string shortName, ClientType type, string city, string province,
-			string country, string level, string paymentType, string scoringCycle)
+			string country, Level level, PaymentType paymentType, string scoringCycle)
 		{
 			Name = name;
 			ShortName = shortName;

@@ -43,12 +43,12 @@ namespace Client.Domain.AggregateRoot
 		/// <summary>
 		/// 优先级
 		/// </summary>
-		private string _level;
+		private Level _level;
 
 		/// <summary>
 		/// 支付方式
 		/// </summary>
-		private string _paymentType;
+		private PaymentType _paymentType;
 
 		/// <summary>
 		/// 打分周期
@@ -85,7 +85,7 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="scoringCycle"></param>
 		public Client(
 			string name, string shortName, ClientType type, Address address,
-			string level, string paymentType, string scoringCycle
+			Level level, PaymentType paymentType, string scoringCycle
 		)
 		{
 			ApplyAggregateEvent(new ClientCreatedEvent(name, shortName, type,
@@ -105,7 +105,7 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>
 		public void ChangeClient(string name, string shortName, ClientType type, 
-			Address address, string level, string paymentType, string scoringCycle)
+			Address address, Level level, PaymentType paymentType, string scoringCycle)
 		{
 			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, 
 				address, level, paymentType, scoringCycle));
