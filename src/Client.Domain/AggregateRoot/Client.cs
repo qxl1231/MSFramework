@@ -64,15 +64,18 @@ namespace Client.Domain.AggregateRoot
 		/// 启用/禁用
 		/// </summary>
 		private bool _active;
-		
+
 		public Address Address { get; private set; }
+
 		public IReadOnlyCollection<ClientUser> ClientUsers => _clientUsers;
+
 //		public IReadOnlyCollection<ClientSale> ClientSales => _clientSales;
 		public IReadOnlyCollection<ClientAccount> ClientAccounts => _clientAccounts;
 
 		public Client()
 		{
 		}
+
 		/// <summary>
 		/// 创建客户
 		/// </summary>
@@ -104,10 +107,10 @@ namespace Client.Domain.AggregateRoot
 		/// <param name="paymentType"></param>
 		/// <param name="scoringCycle"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public void ChangeClient(string name, string shortName, ClientType type, 
+		public void ChangeClient(string name, string shortName, ClientType type,
 			Address address, Level level, PaymentType paymentType, string scoringCycle)
 		{
-			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type, 
+			ApplyAggregateEvent(new ClientChangedEvent(name, shortName, type,
 				address, level, paymentType, scoringCycle));
 		}
 
@@ -252,7 +255,20 @@ namespace Client.Domain.AggregateRoot
 			var oldClientUser = _clientUsers.FirstOrDefault(x => x.Id == e.Id);
 			Check.NotNull(oldClientUser, nameof(oldClientUser));
 
-			oldClientUser = e.NewClientUser;
+			if (oldClientUser == null) return;
+			oldClientUser.SetEmail(e.NewClientUser.GetEmail());
+			oldClientUser.SetPhone(e.NewClientUser.GetPhone());
+			oldClientUser.SetTitle(e.NewClientUser.GetTitle());
+			oldClientUser.SetMobile(e.NewClientUser.GetMobile());
+			oldClientUser.SetMobile(e.NewClientUser.GetMobile());
+			oldClientUser.SetCivility(e.NewClientUser.GetCivility());
+			oldClientUser.SetDepartment(e.NewClientUser.GetDepartment());
+			oldClientUser.SetDepartment(e.NewClientUser.GetDepartment());
+			oldClientUser.SetLastName(e.NewClientUser.GetLastName());
+			oldClientUser.SetFirstName(e.NewClientUser.GetFirstName());
+			oldClientUser.SetTitleDescription(e.NewClientUser.GetTitleDescription());
+			oldClientUser.SetIndustryDescription(e.NewClientUser.GetIndustryDescription());
+			oldClientUser.SetDepartmentDescription(e.NewClientUser.GetDepartmentDescription());
 		}
 
 		private void Apply(EnableClientUserChangedEvent e)
@@ -288,10 +304,8 @@ namespace Client.Domain.AggregateRoot
 		private void Apply(ClientAccountUpdatedEvent e)
 		{
 			Check.NotNull(e, nameof(e));
-
 			var oldClientAccount = _clientAccounts.FirstOrDefault(x => x.Id == e.Id);
 			Check.NotNull(oldClientAccount, nameof(oldClientAccount));
-
 			oldClientAccount = e.NewClientAccount;
 		}
 
