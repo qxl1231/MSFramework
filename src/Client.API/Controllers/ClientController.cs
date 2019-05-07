@@ -30,11 +30,9 @@ namespace Client.API.Controllers
 		[HttpPost("")]
 		public async Task<IActionResult> CreateClient()
 		{
-			var random = new Random();
-			var count = random.Next(2, 5);
 			await _clientAppService.CreateClient(new CreateClientDTO("富国基金公司", "富国基金", ClientType.PublicFund, "富国基金", "富国基金", "富国基金",
-				"富国基金", "富国基金"
-				, "富国基金"
+				"富国基金", "预付费"
+				, "1,2,3,4"
 			));
 			// FOR TEST
 			return Ok();
